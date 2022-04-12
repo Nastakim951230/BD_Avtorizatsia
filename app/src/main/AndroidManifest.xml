@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BD_Avtorizatsia">
         <activity
+            android:name=".Prosmotr"
+            android:exported="false" />
+        <activity
             android:name=".BD"
             android:exported="false" />
         <activity

@@ -19,7 +19,7 @@ import android.widget.TextView;
 public class BD extends AppCompatActivity implements View.OnClickListener {
 
     Button btnAdd,  btnClear, btnNazad;
-    EditText etFamila,etName,etTovar, etEmail;
+    EditText etTovar, etKolvo, etPrice;
     SQLiteDatabase database;
     DBHelper dbHelper;
     ContentValues contentValues;
@@ -36,10 +36,10 @@ public class BD extends AppCompatActivity implements View.OnClickListener {
         btnClear = (Button) findViewById(R.id.btnClear);
         btnClear.setOnClickListener(this);
 
-        etFamila=(EditText)findViewById(R.id.etFamila);
-        etName = (EditText) findViewById(R.id.etName);
+
         etTovar=(EditText) findViewById(R.id.etTovar);
-        etEmail = (EditText) findViewById(R.id.etEmail);
+        etKolvo = (EditText) findViewById(R.id.etKolvo);
+        etPrice=(EditText) findViewById(R.id.etPrice);
         dbHelper = new DBHelper(this);
         database=dbHelper.getWritableDatabase();
 
@@ -52,10 +52,9 @@ public class BD extends AppCompatActivity implements View.OnClickListener {
         dbOutput.removeAllViews();
         if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
-            int familaIndex= cursor.getColumnIndex(DBHelper.KEY_FAMILIA);
-            int nameIndex = cursor.getColumnIndex(DBHelper.KEY_NAME);
             int tovarIndex= cursor.getColumnIndex(DBHelper.KEY_TOVAR);
-            int emailIndex = cursor.getColumnIndex(DBHelper.KEY_MAIL);
+            int KolvoIndex = cursor.getColumnIndex(DBHelper.KEY_KOLVO);
+            int PriceIndex = cursor.getColumnIndex(DBHelper.KEY_PRICE);
             do{
                 TableRow dbOutputRow=new TableRow(this);
                 dbOutputRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -68,17 +67,6 @@ public class BD extends AppCompatActivity implements View.OnClickListener {
                 outputID.setText(cursor.getString(idIndex));
                 dbOutputRow.addView(outputID);
 
-                TextView outputFamilia= new TextView(this);
-                params.weight=3.0f;
-                outputFamilia.setLayoutParams(params);
-                outputFamilia.setText(cursor.getString(familaIndex));
-                dbOutputRow.addView(outputFamilia);
-
-                TextView outputName= new TextView(this);
-                params.weight=3.0f;
-                outputName.setLayoutParams(params);
-                outputName.setText(cursor.getString(nameIndex));
-                dbOutputRow.addView(outputName);
 
                 TextView outputTovar= new TextView(this);
                 params.weight=3.0f;
@@ -86,11 +74,17 @@ public class BD extends AppCompatActivity implements View.OnClickListener {
                 outputTovar.setText(cursor.getString(tovarIndex));
                 dbOutputRow.addView(outputTovar);
 
-                TextView outputMail= new TextView(this);
+                TextView outputKolvo= new TextView(this);
                 params.weight=3.0f;
-                outputMail.setLayoutParams(params);
-                outputMail.setText(cursor.getString(emailIndex));
-                dbOutputRow.addView(outputMail);
+                outputKolvo.setLayoutParams(params);
+                outputKolvo.setText(cursor.getString(KolvoIndex));
+                dbOutputRow.addView(outputKolvo);
+
+                TextView outputPrice= new TextView(this);
+                params.weight=3.0f;
+                outputPrice.setLayoutParams(params);
+                outputPrice.setText(cursor.getString(PriceIndex));
+                dbOutputRow.addView(outputPrice);
 
                 Button deleteBtn= new Button(this);
                 deleteBtn.setOnClickListener(this);
@@ -112,16 +106,16 @@ public class BD extends AppCompatActivity implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.btnAdd:
-                String familia=etFamila.getText().toString();
-                String name = etName.getText().toString();
+
                 String tovar = etTovar.getText().toString();
-                String email = etEmail.getText().toString();
+                String kolvo = etKolvo.getText().toString();
+                String price = etPrice.getText().toString();
 
                 contentValues = new ContentValues();
-                contentValues.put(DBHelper.KEY_FAMILIA, familia);
-                contentValues.put(DBHelper.KEY_NAME, name);
+
                 contentValues.put(DBHelper.KEY_TOVAR, tovar);
-                contentValues.put(DBHelper.KEY_MAIL, email);
+                contentValues.put(DBHelper.KEY_KOLVO, kolvo);
+                contentValues.put(DBHelper.KEY_PRICE, price);
 
                 database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
 
@@ -146,19 +140,19 @@ public class BD extends AppCompatActivity implements View.OnClickListener {
                 Cursor cursorUpdater = database.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
                 if (cursorUpdater.moveToFirst()) {
                     int idIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_ID);
-                    int familaIndex=cursorUpdater.getColumnIndex(DBHelper.KEY_FAMILIA);
-                    int nameIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_NAME);
+
                     int tovarIndex=cursorUpdater.getColumnIndex(DBHelper.KEY_TOVAR);
-                    int emailIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_MAIL);
+                    int KolvoIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_KOLVO);
+                    int PriceIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_PRICE);
                     int realID=1;
                     do{
                         if(cursorUpdater.getInt(idIndex)>realID)
                         {
                             contentValues.put(DBHelper.KEY_ID,realID);
-                            contentValues.put(DBHelper.KEY_FAMILIA,cursorUpdater.getString(familaIndex));
-                            contentValues.put(DBHelper.KEY_NAME,cursorUpdater.getString(nameIndex));
+
                             contentValues.put(DBHelper.KEY_TOVAR,cursorUpdater.getString(tovarIndex));
-                            contentValues.put(DBHelper.KEY_MAIL,cursorUpdater.getString(emailIndex));
+                            contentValues.put(DBHelper.KEY_KOLVO,cursorUpdater.getString(KolvoIndex));
+                            contentValues.put(DBHelper.KEY_PRICE,cursorUpdater.getString(PriceIndex));
                             database.replace(DBHelper.TABLE_CONTACTS,null,contentValues);
                         }
                         realID++;

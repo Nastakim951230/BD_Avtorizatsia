@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DBHelper dbHelper;
     SQLiteDatabase database;
 
+    String adminUser = "admin";
+    String adminPassword = "admin";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         dbHelper= new DBHelper(this);
         database=dbHelper.getWritableDatabase();
+
+
+        usernameField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    usernameField.setHint("");
+                else
+                    usernameField.setHint("Логин");
+            }
+        });
+
+        passwordField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    passwordField.setHint("");
+                else
+                    passwordField.setHint("Пароль");
+            }
+        });
+
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(DBHelper.KEY_USER, adminUser);
+        contentValues.put(DBHelper.KEY_PASSWORD, adminPassword);
+
+        database.insert(DBHelper.TABLE_USERS, null, contentValues);
     }
 
     @Override
@@ -47,8 +77,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     int usernameIndex=logcursor.getColumnIndex(DBHelper.KEY_USER);
                     int passwordIndex=logcursor.getColumnIndex(DBHelper.KEY_PASSWORD);
                     do{
+                        if(usernameField.getText().toString().equals(adminUser) && passwordField.getText().toString().equals(adminPassword)) {
+                            startActivity(new Intent(this, BD.class));
+                            loqqed = true;
+                            break;
+                        }
                         if(usernameField.getText().toString().equals(logcursor.getString(usernameIndex))&& passwordField.getText().toString().equals(logcursor.getString(passwordIndex))){
-                            startActivity(new Intent(this,BD.class));
+                            startActivity(new Intent(this,Prosmotr.class));
                             loqqed=true;
                             break;
                         }

@@ -7,62 +7,47 @@
     tools:context=".BD">
 
     <EditText
-        android:id="@+id/etFamila"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:hint="Фамилия"
-        app:layout_constraintBottom_toTopOf="@+id/etName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </EditText>
-
-    <EditText
-        android:id="@+id/etName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:hint="Имя"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etFamila"></EditText>
-
-    <EditText
         android:id="@+id/etTovar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
         android:hint="Товар"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        app:layout_constraintBottom_toTopOf="@+id/etKolvo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etName"></EditText>
+        app:layout_constraintTop_toTopOf="parent"></EditText>
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etKolvo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:hint="Email"
+        android:hint="Количество"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/etPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTovar"
+        app:layout_constraintVertical_bias="0.0"></EditText>
+
+    <EditText
+        android:id="@+id/etPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:hint="Цена"
+        android:inputType="number"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTovar"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/etKolvo"></EditText>
 
     <Button
         android:id="@+id/btnClear"
@@ -71,7 +56,7 @@
         android:text="Удаление"
         app:layout_constraintStart_toEndOf="@+id/btnAdd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/etPrice"></Button>
 
     <Button
         android:id="@+id/btnAdd"
@@ -80,7 +65,7 @@
         android:text="Добавление"
         app:layout_constraintEnd_toStartOf="@+id/btnClear"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/etPrice"></Button>
 
     <TableLayout
         android:id="@+id/dbOutrut"
@@ -106,7 +91,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="125dp" />
     </TableLayout>
 
     <Button
