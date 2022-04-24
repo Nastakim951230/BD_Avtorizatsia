@@ -56,15 +56,15 @@ public class Prosmotr extends AppCompatActivity implements View.OnClickListener 
     public void UpdateTable(){
         Cursor cursor = database.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
 
-        TableLayout dbOutput=findViewById(R.id.dbOutrut);
-        dbOutput.removeAllViews();
+
 
         if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
             int tovarIndex= cursor.getColumnIndex(DBHelper.KEY_TOVAR);
             int KolvoIndex = cursor.getColumnIndex(DBHelper.KEY_KOLVO);
             int PriceIndex = cursor.getColumnIndex(DBHelper.KEY_PRICE);
-
+            TableLayout dbOutput = findViewById(R.id.dbOutput);
+            dbOutput.removeAllViews();
             do{
                 TableRow dbOutputRow=new TableRow(this);
                 dbOutputRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -112,7 +112,6 @@ public class Prosmotr extends AppCompatActivity implements View.OnClickListener 
         }
         cursor.close();
     }
-
 
     @Override
     public void onClick(View v) {
